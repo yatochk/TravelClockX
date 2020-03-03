@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
 class LocationViewModel @Inject constructor(
-    private val context: Context
+    context: Context
 ) : ViewModel() {
+
+    val locationLiveData = LocationLiveData(context)
 
 }
