@@ -12,13 +12,13 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 
-class LocationLiveData(private val context: Context) : LiveData<LocationModel>() {
+class LocationLiveData(private val context: Context) : LiveData<LocationState>() {
 
     companion object {
         private val locationRequest: LocationRequest = LocationRequest.create().apply {
             interval = 1000
             fastestInterval = 100
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         }
     }
 
@@ -48,14 +48,14 @@ class LocationLiveData(private val context: Context) : LiveData<LocationModel>()
     }
 
     private fun setLocationData(location: Location) {
-        value = LocationInfo(
+        value = InfoLocationState(
             location.latitude,
             location.longitude
         )
     }
 
     private fun setNeedPermission() {
-        value = NeedLocationPermission
+        value = NeedPermissionLocationState
     }
 
     private fun startLocationUpdates() {

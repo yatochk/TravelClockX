@@ -1,13 +1,15 @@
 package com.yatochk.secure.travelclockx.location
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.snakydesign.livedataextensions.first
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class LocationViewModel @Inject constructor(
-    context: Context
+    locationLiveData: LocationLiveData
 ) : ViewModel() {
 
-    val locationLiveData = LocationLiveData(context)
+    val location = locationLiveData.first()
 
 }
