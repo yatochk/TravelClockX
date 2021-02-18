@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
+import android.util.Log
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LiveData
@@ -58,7 +59,7 @@ class LocationLiveData(private val context: Context) : LiveData<LocationState>()
         value = NeedPermissionLocationState
     }
 
-    private fun startLocationUpdates() {
+    fun startLocationUpdates() {
         checkPermission()
         checkLastLocation()
         fusedLocationClient.requestLocationUpdates(
@@ -94,6 +95,9 @@ class LocationLiveData(private val context: Context) : LiveData<LocationState>()
                 location?.also {
                     setLocationData(it)
                 }
+            }
+            .addOnFailureListener {
+                Log.e(LocationLiveData::class.simpleName, it.localizedMessage ?: "", it)
             }
     }
 

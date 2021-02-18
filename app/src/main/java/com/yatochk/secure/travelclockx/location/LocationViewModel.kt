@@ -1,15 +1,27 @@
 package com.yatochk.secure.travelclockx.location
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.snakydesign.livedataextensions.first
+import com.snakydesign.livedataextensions.filter
+import com.snakydesign.livedataextensions.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LocationViewModel @Inject constructor(
-    locationLiveData: LocationLiveData
+    private val locationLiveData: LocationLiveData
 ) : ViewModel() {
 
-    val location = locationLiveData.first()
+    private var enableAutoLocation = true
+
+    val location: LiveData<LocationState> = locationLiveData.filter { enableAutoLocation }.map {
+        enableAutoLocation = false
+        it
+    }
+
+    fun onPermissionLocationGranted() {
+        locationLiveData.startLocationUpdates()
+        enableAutoLocation = true
+    }
 
 }

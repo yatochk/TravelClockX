@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TravelClock X</string>
+    <string name="permission_reason">Для работы приложения необходимо разрешение на использование местоположения. Без него TravelClock не сможет понять как близко вы находитесь к точке пробуждения. Это единственная причина, по которой приложение использует местоположение.</string>
+    <string name="ok">Ок</string>
+    <string name="exit">Выйти</string>
+    <string name="title_location_reason">Местоположение</string>
 </resources>
